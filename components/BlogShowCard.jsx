@@ -1,0 +1,19 @@
+import Link from 'next/link'
+const BlogShowCard = () => {
+  return (
+    <section className='blog-show-card'>
+        <div className="blog-show-card-text-container">
+          <h1>
+            have a property in ebonyi state for sale ?
+          </h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti rerum nesciunt deserunt, facilis eos harum ullam sint adipisci praesentium animi fugit voluptates et placeat autem omnis est unde repellendus itaque!</p>
+          <Link href="/blog" className="sort-btn">
+            let us know
+          </Link>
+        </div>
+        <img src="/house (2).jpeg" alt="" className="blog-show-card-img" /> 
+    </section>
+  )
+}
+
+export default BlogShowCard
