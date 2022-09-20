@@ -5,16 +5,19 @@ export default async function   createPost(req, res){
     await connectMongo() 
     console.log("connected successfully")
     try {
-        await Post.updateOne({"_id": req.body.id},
-        {$set : {title : req.body.title}},
-        {$set : {body: req.body.body}},
-        {$set : {image: req.body.image}},
-        {$set : {author:req.body.author}},
-        {$set : {category : req.body.category}},
+        await Post.findOneAndUpdate({"_id": req.body.id},
+         {title : req.body.title, body: req.body.body,image: req.body.image,author:req.body.author,category : req.body.category},
+        (error, data)=>{
+            if(error){
+                console.log(error)
+            }
+            else{
+                console.log(data)
+            }
+        }
         )
-        res.acknowledged;
-        console.log("post successfully updated")
         res.status(200).json('updated')
+        console.log("post successfully updated")
     } catch (error) {
         console.log(error)
         res.json(error)

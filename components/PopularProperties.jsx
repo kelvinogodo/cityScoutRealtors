@@ -3,10 +3,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
-import Card from './Card'
+import PopularCard from './PopularCard'
 const PopularProperties = ({properties}) => {
   return (
-    <motion.div layout>
+    <motion.div layout className='desktop-popular-list'>
         <Swiper
         slidesPerView={3}
         spaceBetween={30}
@@ -19,7 +19,7 @@ const PopularProperties = ({properties}) => {
         {properties.map((item)=>(
         <SwiperSlide className='slide'>
           <AnimatePresence>
-            <Card key={item.id} item={item} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className='property-card'/>
+            <PopularCard key={item.id} item={item} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className='property-card'/>
           </AnimatePresence>
         </SwiperSlide>
         ))}

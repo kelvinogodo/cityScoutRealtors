@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "kelvin",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "@emailjs/browser": "^3.7.0",
+    "@tiptap/extension-link": "2.0.0-beta.195",
     "@tiptap/extension-underline": "2.0.0-beta.194",
     "@tiptap/react": "2.0.0-beta.194",
     "@tiptap/starter-kit": "2.0.0-beta.194",
+    "animate.css": "^4.1.1",
+    "animate.css-react": "^1.1.0",
     "aos": "^2.3.4",
     "framer-motion": "^7.2.0",
     "html-react-parser": "^3.0.4",
@@ -30,5 +33,20 @@
   "devDependencies": {
     "eslint": "8.22.0",
     "eslint-config-next": "12.2.5"
-  }
+  },
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kelvinogodo/cityScoutRealtors.git"
+  },
+  "keywords": [
+    "''"
+  ],
+  "author": "kelvin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kelvinogodo/cityScoutRealtors/issues"
+  },
+  "homepage": "https://github.com/kelvinogodo/cityScoutRealtors#readme"
 }

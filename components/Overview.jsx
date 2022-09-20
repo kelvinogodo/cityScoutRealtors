@@ -1,12 +1,15 @@
 import {useState,useEffect,useRef} from 'react'
+import {FaWindowClose} from 'react-icons/fa'
 import {IoIosCreate} from 'react-icons/io'
 import {MdPostAdd} from 'react-icons/md'
 import {GiHouseKeys} from 'react-icons/gi'
+import Image from 'next/image'
 import Card from './Card'
 import BlogCard from './BlogCard'
 import {RiDeleteBin2Line} from 'react-icons/ri'
 import {RiFileEditLine} from 'react-icons/ri'
 import TipTap from './TipTap'
+import parser from 'html-react-parser'
 const Overview = ({showOverview,showCreateSection,showEditSection,showCreatePropertySection,showEditPropertySection}) => {
 
   // posts and properties state managers 
@@ -65,6 +68,7 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
     )
     const res = await req.json()
     console.log(res)
+    fetchData()
   }
 
   // property states 
@@ -135,24 +139,49 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
 
   // edit post value state managers 
   const newPostTitle = useRef(null)
-  const newPostBody = useRef(null)
+  const [newPostBody,setNewPostBody] = useState()
   const [newPostImage, setNewPostImage] = useState()  
   const newPostauthor = useRef(null)
   const [newPostCategory,setNewPostCategory] = useState('normal')
 
   // edit property value state managers 
-  const newPropertylocation = useRef()
-  const newPropertyPrice = useRef()
-  const newPropertyDescription = useRef()
-  const newPropertyFrontImage = useRef()  
-  const newPropertySideImage = useRef()
-  const newPropertybackImage = useRef()
+  const newPropertyLocation = useRef(null)
+  const newPropertyPrice = useRef(null)
+  const [newPropertyDescription,setNewPropertyDescription] = useState()
+  const [newPropertyFrontViewImage,setNewPropertyFrontViewImage] =useState()  
+  const [newPropertySideViewImage,setNewPropertySideViewImage] = useState()
+  const [newPropertyBackViewImage,setNewPropertyBackViewImage] = useState()
 
+  const [activePropertyId, setActivePropertyId] = useState()
+
+  const editProperty = async (e)=>{
+    e.preventDefault()
+    const req = await fetch('http://localhost:3000/api/editProperty',
+    {
+      method: 'POST',
+      headers :{
+        'content-Type': 'application/json'
+      },
+      body : JSON.stringify({
+        id:activePropertyId,
+        price: newPropertyPrice.current.innerText,
+        description: newPropertyDescription,
+        location: newPropertyLocation.current.innerText,
+        frontViewImage : newPropertyFrontViewImage,
+        sideViewImage : newPropertySideViewImage,
+        backViewImage : newPropertyBackViewImage,
+      })
+    }
+    )
+    const res = req.json()
+    console.log(res)
+  }
+  const [activeProperty,setActiveProperty] = useState()
   const editPost = async (e)=>{
     e.preventDefault()
     const editedPost={
       title: newPostTitle.current.innerText,
-      body: newPostBody.current.innerText,
+      body: newPostBody,
       image: newPostImage,
       author:newPostauthor.current.innerText,
       category:newPostCategory,
@@ -185,46 +214,127 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
   // post category state manager
   const [category,setCategory] = useState([
     {
+      id:1,
       title:'normal',
-      active:true
+      active:true,
     },
     {
+      id:2,
       title:'featured',
-      active:false
+      active:false,
     }
   ])
+ 
+  const [uploadImage,setUploadImage] = useState()
 
+  const uploadFile = async (e)=>{
+    e.preventDefault()
+    const formData = new FormData
+    formData.append('file',uploadImage)
+
+    const req = await fetch('http://localhost:3000/api/upload',formData,
+    {
+      headers:{
+        'content-Type':'multipart/form-data'
+      }
+    }
+    )
+    const res = req.json()
+    console.log(res)
+  }
   return (
     <main className='overview-section'>
       {
         postEditForm &&
-        <div className="edit-post-form-container"> 
-        <form onSubmit={editPost} className='edit-post-form'>
-          <p onClick={()=>{
+        <section className='post-view-section'>
+        <div className="form-view">
+        <span className='sortlist-close-btn'onClick={()=>{
             setPostEditForm(false)
-          }}>x</p>
-          <div contentEditable='true' ref={newPostTitle} className='edit-input'>{activePost ? activePost.title : 'edit title'}</div>
-          <div contentEditable='true' ref={newPostBody}  className='edit-input'>{activePost ? activePost.body : 'edit post body'}</div>
+        }}>
+            <FaWindowClose />
+        </span>
+        <form className="create-post-form" onSubmit={editPost}>
+        <div contentEditable='true' ref={newPostTitle} className='edit-input'>{activePost ? activePost.title : 'edit title'}</div>
+          <div className="tiptap-container">
+            <TipTap setPostBody={setNewPostBody} body={activePost ? activePost.body : 'edit body'}/>
+          </div>
           <div contentEditable='true' ref={newPostauthor}  className='edit-input'>{activePost ? activePost.author : 'edit author'}</div>
-          <div className="category-btn-container">
+          <input type="file" name='images' accept=".png,.jpg,.webp,.svg,.jpeg" className='file-upload-input'
+             onChange={(e)=>{
+              const image = e.target.files[0].name.toString()
+              setNewPostImage(image)
+            }}
+            required
+          />
+          <div className="category-btn-container"> 
           {
-              category.map((categ,index) =>(
-                <button key={index} onClick={()=>{
-                  setNewPostCategory(categ.title)
-                  setCategory(category.filter(cat =>(cat.title === categ.title ? {...cat, active:true} : {...cat, active:false}))) 
-                }} className={`category-btn ${categ.active ? 'active' : ''}`}>{categ.title}</button>
-              ))
+            category.map(categ =>(
+              <button key={categ.id} onClick={()=>{
+                setNewPostCategory(categ.title)
+                setCategory(category.map(cat =>(cat.title === categ.title ? {...cat, active:true} : {...cat,active:false})))
+              }} className={`category-btn ${categ.active ? 'active' : ''}`}>{categ.title}</button>
+            ))
           }
           </div>
-          <input type="file" accept=".png,.jpg,.webp,.svg,.jpeg" className='file-upload-input'
-               onChange={(e)=>{
-                const image = e.target.files[0].name.toString()
-                setNewPostImage(image)
-              }}
-          />
-          <input type="submit" value="edit post" className='edit-submit-btn' />
+          <input type="submit" value="publish" className='create-btn'/>
         </form>
         </div>
+        <div className="overview ProseMirror">
+        </div>
+      </section>
+      }
+      {
+        propertyEditForm && 
+        <section className='post-view-section'>
+        <div className="form-view">
+        <span className='sortlist-close-btn' onClick={()=>{
+            setPropertyEditForm(false)
+        }}>
+            <FaWindowClose />
+        </span>
+        <form className="create-post-form" onSubmit={editProperty}>
+        <div contentEditable='true' ref={newPropertyLocation} className='edit-input'>{activeProperty ? activeProperty.location : 'edit title'}</div>
+          <div className="tiptap-container">
+            <TipTap setPostBody={setNewPropertyDescription} body={activeProperty ? activeProperty.description : 'edit description'}/>
+          </div>
+          <div contentEditable='true' ref={newPropertyPrice}  className='edit-input'>{activeProperty ? activeProperty.price : 'edit price'}</div>
+          <input type="file" name='images' accept=".png,.jpg,.webp,.svg,.jpeg" className='file-upload-input'
+             onChange={(e)=>{
+              const image = e.target.files[0].name.toString()
+              setNewPropertyFrontViewImage(image)
+            }}
+            required
+          />
+          <input type="file" name='images' accept=".png,.jpg,.webp,.svg,.jpeg" className='file-upload-input'
+             onChange={(e)=>{
+              const image = e.target.files[0].name.toString()
+              setNewPropertyBackViewImage(image)
+            }}
+            required
+          />
+          <input type="file" name='images' accept=".png,.jpg,.webp,.svg,.jpeg" className='file-upload-input'
+             onChange={(e)=>{
+              const image = e.target.files[0].name.toString()
+              setNewPropertySideViewImage(image)
+            }}
+            required
+          />
+          <div className="category-btn-container"> 
+          {
+            category.map(categ =>(
+              <button key={categ.id} onClick={()=>{
+                setNewPostCategory(categ.title)
+                setCategory(category.map(cat =>(cat.title === categ.title ? {...cat, active:true} : {...cat,active:false}))) 
+              }} className={`category-btn ${categ.active ? 'active' : ''}`}>{categ.title}</button>
+            ))
+          }
+          </div>
+          <input type="submit" value="publish" className='create-btn'/>
+        </form>
+        </div>
+        <div className="overview ProseMirror">
+        </div>
+      </section>
       }
         {showOverview && 
           <section className='overview-page'>
@@ -246,48 +356,67 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
               </div>
             </div>
           </section>}
-        {showCreateSection && <section className='overview-page'>
+        {showCreateSection && <section className='post-view-section'>
+          <div className="form-view">
           <form className="create-post-form" onSubmit={createPost}>
-            <input type="text" placeHolder='post title'className='input' 
+            <input type="text" required placeHolder='post title'className='input' 
             onChange={(e)=>{
               const title = e.target.value.toString()
               setPostTitle(title)
             }}
             />
-            <TipTap setPostBody={setPostBody}/>
+            <div className="tiptap-container">
+              <TipTap setPostBody={setPostBody} body={''}/>
+            </div>
             <input type="text" placeHolder='post author' className='input'
               onChange={(e)=>{
                 const author = e.target.value.toString()
                 setPostAuthor(author)
-              }}
+              }} required
             />
-            <input type="file" accept=".png,.jpg,.webp,.svg,.jpeg" className='file-upload-input'
-               onChange={(e)=>{
-                const image = e.target.files[0].name.toString()
-                setPostImage(image)
-              }}
-            />
+            <div className="category-btn-container"> 
             {
-              category.map((categ,index) =>(
-              <div className="category-btn-container">  
-                <button key={index} onClick={()=>{
+              category.map(categ =>(
+                <button key={categ.id} onClick={()=>{
                   setPostCategory(categ.title)
-                  setCategory(category.filter(cat =>(cat.title == categ.title ? {...cat, active:true} : cat))) 
-                }} clasName={`category-btn ${category.active ? 'active' : ''}`}>{categ.title}</button>
-              </div>
+                  // setCategory(category.map(cat =>(cat.id == categ.id ? {...categ, active:true} : {...categ, active: false}))) 
+                  setCategory(category.map(button =>(button.id === categ.id ? {...button,active:true} : {...button,active:false})))
+
+                }} className={`category-btn ${categ.active ? 'active' : ''}`}>{categ.title}</button>
               ))
             }
-            <input type="submit" value="create" className='create-btn'/>
+            </div>
+            <input type="submit" value="create post" className='create-btn'/>
           </form>
+          <form onSubmit={uploadFile}>
+          <input type="file" name='images' accept=".png,.jpg,.webp,.svg,.jpeg" className='file-upload-input'
+               onChange={(e)=>{
+                setPostImage(e.target.files[0].name.toString())
+                const image = e.target.files[0]
+                setUploadImage(image)
+              }}
+              required
+            />
+            <input type="submit" value="upload" className='image-upload-btn'/>
+          </form>
+          </div>
+          <div className="overview ProseMirror">
+            {postTitle && <h1>{postTitle}</h1>}
+            { postImage && <Image height={300} width={400} alt='post image preview' src={`/${postImage}`} blurDataURL={`/${postImage}`} placeholder='blur'/> }
+            {postBody && <div className="post-body">
+              {parser(postBody)}
+            </div>}
+          </div>
         </section>}
         {showCreatePropertySection && 
-          <section className='overview-page'>
-            <form className="create-post-form" onSubmit={createProperty}>
+          <section className='post-view-section'>
+          <div className="form-view">
+          <form className="create-post-form" onSubmit={createProperty}>
             <input type="text" placeHolder='property price'className='input' onChange={(e)=>{
               const price  = e.target.value.toString()
               setPropertyPrice(price)
             }}/>
-            <input type="text" placeHolder='property location' className='input' onChange={(e)=>{
+            <input type="text" placeHolder='property location' className='edit-input' onChange={(e)=>{
               const location  = e.target.value.toString()
               setPropertyLocation(location)
             }} />
@@ -310,7 +439,17 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
               setBackViewImage(backImage)}} />
             <input type="submit" value="create property" className='create-btn'/>
           </form>
-          </section>}
+          </div>
+          <div className="overview ProseMirror">
+            {propertyDescription && <p>{propertyDescription}</p>}
+            {propertyLocation && <p>{propertyLocation}</p>}
+            {propertyPrice && <p>{propertyPrice}</p>}
+            { frontViewImage && <Image height={300} width={400} alt='post image preview' src={`/${frontViewImage}`} blurDataURL={`/${frontViewImage}`} placeholder='blur'/> }
+            { sideViewImage && <Image height={300} width={400} alt='post image preview' src={`/${sideViewImage}`} blurDataURL={`/${sideViewImage}`} placeholder='blur'/> }
+            { backViewImage && <Image height={300} width={400} alt='post image preview' src={`/${backViewImage}`} blurDataURL={`/${backViewImage}`} placeholder='blur'/> }
+          </div>
+          </section>
+          }
         {showEditSection && 
           <section className='overview-page dashboard-property-list'>
             {
@@ -323,7 +462,7 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
                         body:post.body,
                         image:post.image,
                         author:post.author,
-                        // category:post.category
+                        category:post.category
                       })
                       setPostEditForm(true)
                       setActivePostId(post._id)
@@ -342,7 +481,18 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
               properties.map(property => (
                 <div className='edit-card' key={property._id}>
                   <div className="edit-icon-containers">
-                    <RiFileEditLine className='edit-icon edit' />
+                    <RiFileEditLine className='edit-icon edit' onClick={()=>{
+                      setPropertyEditForm(true)
+                      setActivePropertyId(property._id)
+                      setActiveProperty({
+                        price: property.price,
+                        description: property.description,
+                        location :property.location,
+                        frontViewImage:property.frontViewImage, 
+                        sideViewImage: property.sideViewImage,
+                        backViewImage: property.backViewImage
+                      })
+                    }}/>
                     <RiDeleteBin2Line className='edit-icon' onClick={()=>{
                       deleteProperty(property._id)
                     }}/>

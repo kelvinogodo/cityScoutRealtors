@@ -2,7 +2,7 @@ import {BsSearch} from 'react-icons/bs'
 import { useState } from 'react'
 import React, { useRef } from "react";
 // Import Swiper React components
-
+import {FaWindowClose} from 'react-icons/fa'
 // Import Swiper styles
 import "swiper/css";
 const SearchInput = ({inputClass,filterProperties,properties}) => {
@@ -48,7 +48,7 @@ const SearchInput = ({inputClass,filterProperties,properties}) => {
         console.log(sortList)
     }
   return (
-    <section className={`search-input-container ${inputClass}`}>
+    <section className={`search-input-container ${inputClass}`} data-aos={'fade-up'}>
         <div className="sort-btn-container">
         {categories.map(category =>(<button key={category.id} className={`sort-btn ${category.active ? 'active' : ''}`} onClick={
             ()=>{
@@ -69,6 +69,9 @@ const SearchInput = ({inputClass,filterProperties,properties}) => {
             </div>
         ))}
         <section className="sort-list">
+            <span className='sortlist-close-btn' onClick={()=> (setSortList([]))}>
+                <FaWindowClose />
+            </span>
             <div className="sort-list-container">
                 {sortList.map(sort =>(<p onClick={()=>{filterProperties(listTitle,sort)}}>{sort}</p>)) }
            </div>

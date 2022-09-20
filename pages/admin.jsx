@@ -60,6 +60,7 @@ const admin = () => {
   return (
     <section className='login-form-container'>
         <form className="login-form" onSubmit={createAdmin}>
+          <h2>welcome admin</h2>
           <input type="text" required onChange={(e)=>{
             setName(e.target.value)
           }} />
@@ -69,17 +70,18 @@ const admin = () => {
           <input type="password" className="login-input" required onChange={(e)=>{
             setPassword(e.target.value)
           }}/>
-          <input type="submit" value="create account" />
+          <input type="submit" value="create account" className='login-submit-btn'/>
         </form>
 
-        <form action="" onSubmit={login}>
+        <form action="" onSubmit={login} className='login-form'>
+          <h2>welcome admin</h2>
           <input type="email" required onChange={(e)=>{
             setEmail(e.target.value)
           }} />
           <input type="password" required onChange={(e)=>{
             setPassword(e.target.value)
           }} />
-          <input type="submit" value="login" />
+          <input type="submit" value="login" className='login-submit-btn'/>
         </form>
     </section>
   )

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 const BlogShowCard = () => {
   return (
-    <section className='blog-show-card'>
+    <section className='blog-show-card' data-aos={'fade-up'}>
         <div className="blog-show-card-text-container">
           <h1>
             have a property in ebonyi state for sale ?

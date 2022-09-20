@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
+import Parser from 'html-react-parser'
 const Posts = ({post}) => {
   return (
     <main className='page-container'>
@@ -21,7 +22,9 @@ const Posts = ({post}) => {
         </div>
         <div className="post-text-container">
           <h1>{post.title}</h1>
-          <p>{post.body}</p>
+          <div className="ProseMirror">
+            {Parser(post.body)}
+          </div>
           <span className="post-date-container">
             <p>posted : {post.date}</p>
           </span>
@@ -33,7 +36,6 @@ const Posts = ({post}) => {
 }
 export const getStaticProps = async (context)=>{
   const id = context.params.id
-  console.log(id)
   try{
     const req = await fetch(`http://localhost:3000/api/posts/${id}`)
     const post = await req.json()
@@ -52,8 +54,8 @@ export const getStaticProps = async (context)=>{
 export const getStaticPaths = async()=>{
   const req = await fetch(`http://localhost:3000/api/posts`)
   const posts = await req.json()
-  const ids = posts.map(post =>(post._id))
-  const paths = ids.map(id =>({params : {id : id.toString()}}))
+  const ids = posts.map(post =>(post.title))
+  const paths = ids.map(id =>({params : {id : id.trim()}}))
   return{
     paths,
     fallback:false,

@@ -6,11 +6,18 @@ export default async function   createPost(req, res){
     console.log("connected successfully")
     try {
         await Property.updateOne({"_id": req.body.id},
-        {$set : {location : req.body.location}},
-        {$set : {price: req.body.price}},
-        {$set : {description: req.body.description}},
+        {location : req.body.location,
+        price: req.body.price,
+        description: req.body.description},
+        (error, data)=>{
+            if(error){
+                console.log(error)
+            }
+            else{
+                console.log(data)
+            }
+        }
         )
-        res.acknowledged;
         console.log("property successfully updated")
         res.status(200).json('updated')
     } catch (error) {

@@ -7,6 +7,8 @@ import PropertyList from '../components/PropertyList'
 import BlogShowCard from '../components/BlogShowCard'
 import BlogSection from '../components/BlogSection'
 import SeeAll from '../components/SeeAll'
+import PopularHeader from '../components/PopularHeader'
+import MobilePopularList from '../components/MobilePopularList'
 import {useState} from 'react'
 export default function Home({featuredposts,data}) {
   const [filter,setFilter]= useState(data ? data : '')
@@ -27,7 +29,6 @@ export default function Home({featuredposts,data}) {
             break;
         }
       }
-     
   return (
     <main className={styles.container}>
       <Head>
@@ -36,13 +37,15 @@ export default function Home({featuredposts,data}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Landpage />
+      <PopularHeader />
       <PopularProperties properties={filter}/>
+      <MobilePopularList properties={filter}/>
       <SearchInput filterProperties={filterProperties} properties={filter}/>
       {filter === [] ? <p>oops! we dont have what you are looking for </p> : <PropertyList properties={filter}/>}
-      <SeeAll link={'/properties'} text={'see available propeties'}/>
+      {/* <SeeAll link={'/properties'} text={'see available propeties'}/> */}
       <BlogShowCard />
       <BlogSection posts={featuredposts ? featuredposts : ''}/>
-      <SeeAll link={'/blog'} text={'view more posts'}/>
+      {/* <SeeAll link={'/blog'} text={'view more posts'}/> */}
     </main>
   )
  
@@ -53,7 +56,7 @@ export const getStaticProps = async ()=>{
       fetch('http://localhost:3000/api/posts'),
       fetch('http://localhost:3000/api/properties')
     ]);
-  const [featuredposts, data] = await Promise.all([req.json(),getProperties.json()]) 
+  const [featuredposts, data] = await Promise.all([req.json(),getProperties.json()])
   return{
       props:{
           featuredposts,data

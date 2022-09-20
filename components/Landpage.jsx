@@ -3,7 +3,6 @@ import Image from 'next/image'
 import React, { useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -36,28 +35,61 @@ const Landpage = () => {
             <Image layout='fill' alt='swiper slide image' src='/realestate (17).jpg' className='swiper-slide-img' priority/>
             </SwiperSlide>
             <SwiperSlide>
-            <Image layout='fill' alt='swiper slide image' src='/realestate (3).jpg' className='swiper-slide-img' priority/>
+            <Image layout='fill' alt='swiper slide image' src='/real (7).jpg' className='swiper-slide-img' priority/>
             </SwiperSlide>
             <SwiperSlide>
             <Image layout='fill' alt='swiper slide image' src='/realestate (7).jpg' className='swiper-slide-img' priority/>
             </SwiperSlide>
             <SwiperSlide>
-            <Image layout='fill' alt='swiper slide image' src='/realestate (10).jpg' className='swiper-slide-img' priority/>
+            <Image layout='fill' alt='swiper slide image' src='/real (8).jpg' className='swiper-slide-img' priority/>
             </SwiperSlide>
             <SwiperSlide>
-            <Image layout='fill' alt='swiper slide image' src='/realestate (11).jpg' className='swiper-slide-img' priority/>
+            <Image layout='fill' alt='swiper slide image' src='/real (5).jpg' className='swiper-slide-img' priority/>
             </SwiperSlide>
             <SwiperSlide>
             <Image layout='fill' alt='swiper slide image' src='/realestate (13).jpg' className='swiper-slide-img' priority/>
             </SwiperSlide>
             <SwiperSlide>
-            <Image layout='fill' alt='swiper slide image' src='/realestate (5).jpg' className='swiper-slide-img' priority/>
+            <Image layout='fill' alt='swiper slide image' src='/real (6).jpg' className='swiper-slide-img' priority/>
             </SwiperSlide>
             <SwiperSlide>
             <Image layout='fill' alt='swiper slide image' src='/realestate (6).jpg' className='swiper-slide-img' priority/>
             </SwiperSlide>
             <SwiperSlide>
             <Image layout='fill' alt='swiper slide image' src='/complex (3).jpg' className='swiper-slide-img' priority/>
+            </SwiperSlide>
+            <SwiperSlide>
+            <Image layout='fill' alt='swiper slide image' src='/real (16).jpg' className='swiper-slide-img' priority/>
+            </SwiperSlide>
+            <SwiperSlide>
+            <Image layout='fill' alt='swiper slide image' src='/real (10).jpg' className='swiper-slide-img' priority/>
+            </SwiperSlide>
+            <SwiperSlide>
+            <Image layout='fill' alt='swiper slide image' src='/real (12).jpg' className='swiper-slide-img' priority/>
+            </SwiperSlide>
+            <SwiperSlide>
+            <Image layout='fill' alt='swiper slide image' src='/real (11).jpg' className='swiper-slide-img' priority/>
+            </SwiperSlide>
+            <SwiperSlide>
+            <Image layout='fill' alt='swiper slide image' src='/real (14).jpg' className='swiper-slide-img' priority/>
+            </SwiperSlide>
+            <SwiperSlide>
+            <Image layout='fill' alt='swiper slide image' src='/real (15).jpg' className='swiper-slide-img' priority/>
+            </SwiperSlide>
+            <SwiperSlide>
+            <Image layout='fill' alt='swiper slide image' src='/real (17).jpg' className='swiper-slide-img' priority/>
+            </SwiperSlide>
+            <SwiperSlide>
+            <Image layout='fill' alt='swiper slide image' src='/real (4).jpg' className='swiper-slide-img' priority/>
+            </SwiperSlide>
+            <SwiperSlide>
+            <Image layout='fill' alt='swiper slide image' src='/real (2).jpg' className='swiper-slide-img' priority/>
+            </SwiperSlide>
+            <SwiperSlide>
+            <Image layout='fill' alt='swiper slide image' src='/real (3).jpg' className='swiper-slide-img' priority/>
+            </SwiperSlide>
+            <SwiperSlide>
+            <Image layout='fill' alt='swiper slide image' src='/real (1).jpg' className='swiper-slide-img' priority/>
             </SwiperSlide>
           </Swiper>
         <div className="landpage-outer-section">
