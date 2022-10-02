@@ -7,6 +7,7 @@ const propertySchema = new Schema({
     frontViewImage:{type:String,required:true},
     sideViewImage:{type:String,required:true},
     backViewImage:{type:String,required:true},
+    type:{type:String,required:true},
 })
 
 const Property = models.Property || model('Property', propertySchema)

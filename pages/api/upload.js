@@ -1,7 +1,7 @@
 import { connectMongo } from "../../utils/connectMongo"
 import multer from "multer"
 import path from "path"
-export default async function   createPost(req, res){
+export default async function   upload(req, res){
     console.log("connecting to mongodb")
     await connectMongo()
     console.log("connected successfully")

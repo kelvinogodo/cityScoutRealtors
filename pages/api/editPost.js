@@ -6,7 +6,7 @@ export default async function   createPost(req, res){
     console.log("connected successfully")
     try {
         await Post.findOneAndUpdate({"_id": req.body.id},
-         {title : req.body.title, body: req.body.body,image: req.body.image,author:req.body.author,category : req.body.category},
+         {title : req.body.title, body: req.body.body,image: req.body.image,category : req.body.category},
         (error, data)=>{
             if(error){
                 console.log(error)

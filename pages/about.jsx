@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import {GiProgression} from 'react-icons/gi'
 import {RiShieldUserFill} from 'react-icons/ri'
 import {SiFsecure} from 'react-icons/si'
@@ -11,17 +12,20 @@ const about = () => {
         property Agents in Abakaliki
       </title>
       <meta name="description" content="a property agency website, for properties around ebonyi state, Nigeria" />
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/cityScoutlogo.png" />
     </Head>
     <main className="about-page">
-      <section className="about-landpage" style={{backgroundImage:`url(/about.webp)`}}>
+      <section className="about-landpage" >
+      <Image src='/cityScoutlogo.png' alt='city scout logo' width={500} height={400} className='about-img'/>
         <div className="about-landpage-container">
           <span className="about-landpage-header">
             <h1>about abakaliki real estate</h1>
             <span className="line"></span>
           </span>
-          <p>city scout realtors is a property agent based in Abakaliki. our focus is to help pepople find, and buy legal properties, whether buildings or land , in the state. we are also committed to delivering quality property development services.
-            <br />
+          <p>city scout realtors is a property agent based in Abakaliki. our focus is to help pepople find, and buy legal properties, whether buildings or land , in the state. we are also committed to 
+          </p>
+          <p>
+          delivering quality property development services.
           the team is made up of experienced and young professionals with a taste fro innovation and quality property brokerage
           </p>
         </div>
@@ -66,7 +70,7 @@ const about = () => {
               <span className="about-text-container-span">
                 <h3>continues growth</h3>
                 <span className="line about-line"></span>
-                <p>we learn everyday and we improve avery second</p>
+                <p>We learn everyday and we improve avery second</p>
               </span>
             </div>
           </div>
@@ -78,7 +82,7 @@ const about = () => {
           <div className="team-card-text-container">
             <h2>our vision</h2>
             <span className="line"></span>
-            <p>to easily connect real estate investors to the right properties in Ebonyi state and drive seamless acquisition</p>
+            <p>To easily connect real estate investors to the right properties in Ebonyi state and drive seamless acquisition</p>
           </div>
         </div>
         <div className="team-card">
@@ -88,7 +92,7 @@ const about = () => {
           <div className="team-card-text-container">
             <h2>our mision</h2>
             <span className="line"></span>
-            <p>to unlock the full potential of real estate in the rgion through technology and innovation</p>
+            <p>To unlock the full potential of real estate in the rgion through technology and innovation</p>
           </div>
         </div>
       </section>

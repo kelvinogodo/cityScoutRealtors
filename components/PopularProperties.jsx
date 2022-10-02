@@ -16,7 +16,7 @@ const PopularProperties = ({properties}) => {
         modules={[Pagination]}
         className="mySwiper popular-swiper"
       >
-        {properties.map((item)=>(
+        {properties.slice(properties.length - 4, properties.length).reverse().map((item)=>(
         <SwiperSlide className='slide'>
           <AnimatePresence>
             <PopularCard key={item.id} item={item} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className='property-card'/>

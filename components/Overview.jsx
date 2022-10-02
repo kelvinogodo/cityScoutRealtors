@@ -29,13 +29,13 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
     console.log(`${posts} ${propertiesArray}`)
   }
   useEffect(()=>{ 
-    const admin = localStorage.getItem('user') 
-    if(admin !== null){
-        console.log('welcome admin')
-    }
-    else{
-        window.location.href= '/admin'
-    }
+    // const admin = localStorage.getItem('user') 
+    // if(admin !== null){
+    //     console.log('welcome admin')
+    // }
+    // else{
+    //     window.location.href= '/admin'
+    // }
   fetchData()
   },[])
   const [postTitle,setPostTitle] = useState()
@@ -78,6 +78,7 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
   const [frontViewImage, setFrontViewImage] = useState()
   const [sideViewImage, setSideViewImage] = useState()
   const [backViewImage, setBackViewImage] = useState()
+  const [propertyType, setPropertyType] = useState()
 
   // function for creating property 
   const createProperty = async (e)=>{
@@ -88,7 +89,8 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
       price:`${propertyPrice}`,
       frontViewImage: `${frontViewImage}`,
       sideViewImage:`${sideViewImage}`,
-      backViewImage:`${backViewImage}`
+      backViewImage:`${backViewImage}`,
+      type:propertyType,
     }
     const request = await fetch('http://localhost:3000/api/createProperty',
     {
@@ -141,7 +143,6 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
   const newPostTitle = useRef(null)
   const [newPostBody,setNewPostBody] = useState()
   const [newPostImage, setNewPostImage] = useState()  
-  const newPostauthor = useRef(null)
   const [newPostCategory,setNewPostCategory] = useState('normal')
 
   // edit property value state managers 
@@ -183,7 +184,6 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
       title: newPostTitle.current.innerText,
       body: newPostBody,
       image: newPostImage,
-      author:newPostauthor.current.innerText,
       category:newPostCategory,
     }
     console.log(editedPost)
@@ -198,7 +198,6 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
         id:activePostId,
         title: editedPost.title,
         body:editedPost.body,
-        author:editedPost.author,
         image:editedPost.image,
         category:editedPost.category
       }) 
@@ -242,6 +241,18 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
     const res = req.json()
     console.log(res)
   }
+  const [propertyTypes,setPropertyTypes] = useState([
+    {
+      id:1,
+      title:'land',
+      active:false,
+    },
+    {
+      id:2,
+      title:'house',
+      active:false,
+    },
+  ])
   return (
     <main className='overview-section'>
       {
@@ -258,7 +269,6 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
           <div className="tiptap-container">
             <TipTap setPostBody={setNewPostBody} body={activePost ? activePost.body : 'edit body'}/>
           </div>
-          <div contentEditable='true' ref={newPostauthor}  className='edit-input'>{activePost ? activePost.author : 'edit author'}</div>
           <input type="file" name='images' accept=".png,.jpg,.webp,.svg,.jpeg" className='file-upload-input'
              onChange={(e)=>{
               const image = e.target.files[0].name.toString()
@@ -322,10 +332,10 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
           <div className="category-btn-container"> 
           {
             category.map(categ =>(
-              <button key={categ.id} onClick={()=>{
+              <p key={categ.id} onClick={()=>{
                 setNewPostCategory(categ.title)
                 setCategory(category.map(cat =>(cat.title === categ.title ? {...cat, active:true} : {...cat,active:false}))) 
-              }} className={`category-btn ${categ.active ? 'active' : ''}`}>{categ.title}</button>
+              }} className={`category-btn ${categ.active ? 'active' : ''}`}>{categ.title}</p>
             ))
           }
           </div>
@@ -374,15 +384,15 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
                 setPostAuthor(author)
               }} required
             />
+            <span className='create-category'>choose category</span>
             <div className="category-btn-container"> 
             {
               category.map(categ =>(
-                <button key={categ.id} onClick={()=>{
+                <p key={categ.id} onClick={()=>{
                   setPostCategory(categ.title)
-                  // setCategory(category.map(cat =>(cat.id == categ.id ? {...categ, active:true} : {...categ, active: false}))) 
                   setCategory(category.map(button =>(button.id === categ.id ? {...button,active:true} : {...button,active:false})))
 
-                }} className={`category-btn ${categ.active ? 'active' : ''}`}>{categ.title}</button>
+                }} className={`category-btn ${categ.active ? 'active' : ''}`}>{categ.title}</p>
               ))
             }
             </div>
@@ -411,7 +421,7 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
         {showCreatePropertySection && 
           <section className='post-view-section'>
           <div className="form-view">
-          <form className="create-post-form" onSubmit={createProperty}>
+          <form className="create-post-form create-property" onSubmit={createProperty}>
             <input type="text" placeHolder='property price'className='input' onChange={(e)=>{
               const price  = e.target.value.toString()
               setPropertyPrice(price)
@@ -437,6 +447,17 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
             <input type="file" accept=".png,.jpg,.webp,.svg,.jpeg" id="file-upload-input" className='file-upload-input'onChange={(e)=>{
               const backImage  = e.target.files[0].name.toString()
               setBackViewImage(backImage)}} />
+            <span className='create-category'>choose property type</span>
+            <div className="category-btn-container"> 
+            {
+              propertyTypes.map(categ =>(
+                <p key={categ.id} onClick={()=>{
+                  setPropertyType(categ.title)
+                  setPropertyTypes(propertyTypes.map(button =>(button.id === categ.id ? {...button,active:true} : {...button,active:false})))
+                }} className={`category-btn ${categ.active ? 'active' : ''}`}>{categ.title}</p>
+              ))
+            }
+            </div>
             <input type="submit" value="create property" className='create-btn'/>
           </form>
           </div>
@@ -453,6 +474,7 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
         {showEditSection && 
           <section className='overview-page dashboard-property-list'>
             {
+              posts ?
               posts.map(post =>(
                 <div className='edit-card' key={post._id}>
                   <div className="edit-icon-containers">
@@ -471,13 +493,14 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
                   </div>
                   <BlogCard item={post} />
                 </div>
-                ))
+                )) : <p> fetching posts... </p>
             }
           </section>
           }
         {showEditPropertySection && 
           <section className='overview-page dashboard-property-list'>
             {
+              properties ?
               properties.map(property => (
                 <div className='edit-card' key={property._id}>
                   <div className="edit-icon-containers">
@@ -499,7 +522,7 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
                   </div>
                   <Card item={property} /> 
                 </div>
-              ))
+              )) : <p>fetching properties...</p>
             }
           </section>
           } 

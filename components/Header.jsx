@@ -10,8 +10,7 @@ const Header = ({toggleMenu}) => {
             </span><span className={headerStyles.menuline}></span>
         </div>
         <div className={headerStyles.logoContainer}>
-            <img src="/logo.png" alt="" className={headerStyles.logo} />
-            <p className={headerStyles.logoText}>city scout realtors</p>
+            <img src="/cityScoutlogo.png" alt="" className={headerStyles.logo} />
         </div>
         <nav className={headerStyles.nav}>
             <ul>

@@ -12,6 +12,8 @@ const service = () => {
         <title>
           real estate brokerage and development
         </title>
+        <meta name="description" content="a property agency website, for properties around ebonyi state, Nigeria" />
+        <link rel="icon" href="/cityScoutlogo.png" />
       </Head>
       <section className="service-landpage">
         <div className="service-landpage-text-container">

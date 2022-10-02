@@ -12,6 +12,7 @@ export default async function  createProperty(req, res){
             frontViewImage:req.body.frontViewImage,
             sideViewImage:req.body.sideViewImage,
             backViewImage:req.body.backViewImage,
+            type:req.body.type,
         })
         console.log("property successfully created")
         res.status(200)

@@ -18,13 +18,11 @@
     align-items: center;
     justify-content: flex-start;
 }
-.logoContainer p{
-    font-family: Plus jarkata Text,lato;
-}
+
 .logo{
-    height: 60px;
-    object-fit: contain;
-    width: 70px;
+    height: 100px;
+    object-fit: cover;
+    width: 200px;
 }
 .nav{
     width:60%;

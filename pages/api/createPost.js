@@ -5,7 +5,6 @@ export default async function   createPost(req, res){
     await connectMongo() 
     console.log("connected successfully")
     try {
-        
         Post.create({
             title:req.body.title,
             body:req.body.body,

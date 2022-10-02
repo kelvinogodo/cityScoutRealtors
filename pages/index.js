@@ -34,18 +34,20 @@ export default function Home({featuredposts,data}) {
       <Head>
         <title>property Agents in Abakaliki</title>
         <meta name="description" content="a property agency website, for properties around ebonyi state, Nigeria" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/cityScoutlogo.png" />
       </Head>
       <Landpage />
-      <PopularHeader />
+      <PopularHeader text={'latest properties'}/>
       <PopularProperties properties={filter}/>
       <MobilePopularList properties={filter}/>
       <SearchInput filterProperties={filterProperties} properties={filter}/>
+      <PopularHeader text={'property listings'}/>
       {filter === [] ? <p>oops! we dont have what you are looking for </p> : <PropertyList properties={filter}/>}
-      {/* <SeeAll link={'/properties'} text={'see available propeties'}/> */}
+      <SeeAll link={'/properties'} text={'see available propeties'}/>
       <BlogShowCard />
+      <PopularHeader text={'latest from blog'}/>
       <BlogSection posts={featuredposts ? featuredposts : ''}/>
-      {/* <SeeAll link={'/blog'} text={'view more posts'}/> */}
+      <SeeAll link={'/blog'} text={'view more posts'}/>
     </main>
   )
  

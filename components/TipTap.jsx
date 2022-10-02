@@ -38,7 +38,7 @@ const MenuBar = ({ editor }) => {
     }
 
     // update link
-    editor.chain().focus().extendMarkRange('link').setLink({ href: url })
+    editor.chain().focus().extendMarkRange('link').setLink({ href: url,target : '_blank' })
       .run()
   }, [editor])
 

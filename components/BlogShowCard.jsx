@@ -7,11 +7,11 @@ const BlogShowCard = () => {
             have a property in ebonyi state for sale ?
           </h1>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti rerum nesciunt deserunt, facilis eos harum ullam sint adipisci praesentium animi fugit voluptates et placeat autem omnis est unde repellendus itaque!</p>
-          <Link href="/blog" className="sort-btn">
+          <Link href="/contact" className="sort-btn">
             let us know
           </Link>
         </div>
-        <img src="/house (2).jpeg" alt="" className="blog-show-card-img" /> 
+        <img src="/realestate (17).jpg" alt="" className="blog-show-card-img" /> 
     </section>
   )
 }

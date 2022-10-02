@@ -2,21 +2,52 @@ import Link from "next/link"
 import BlogCard from "../components/BlogCard"
 import Image from 'next/image'
 import {useState} from 'react'
+import { Swiper, SwiperSlide } from "swiper/react";
+import PopularHeader from '../components/PopularHeader'
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import Parser from 'html-react-parser'
+import { Autoplay, Pagination} from "swiper";
+
 const blog = ({featuredposts}) => {
-    const [featuredpostArray,setFeaturedpostArray] = useState()
+    const [featuredpostArray,setFeaturedpostArray] = useState(featuredposts.filter(post =>(post.category == 'featured' && post)))
   return (
     <main className='blog-page'>
         <section className="featured-post-container">
-            <article className="featured-post-text">
-                <h1>discover the beauty of ebonyi state and real estate</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque illo et accusamus ad, cupiditate explicabo suscipit omnis vel tenetur voluptatibus, </p>
-                <Link href='#blog-posts'>
-                    read more below
-                </Link>
-            </article>
-            <div className="featured-post-image-container">
-                <img src="/about.webp" alt="" priority/>
-            </div>
+        <Swiper
+          spaceBetween={30}
+          centeredSlides={true}
+          autoplay={{
+            delay: 6000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Autoplay, Pagination]}
+          className="mySwiper blog-swiper"
+          >
+            { featuredposts && featuredposts.map(featured => (
+                <SwiperSlide className='blog-slide'>
+                <div className="featured-post-text">
+                    <h1>{featured.title}</h1>
+                    <div className='ProseMirrow featured-post-body'>
+                        {
+                            Parser(featured.body.slice(0,200))
+                        }
+                    </div>
+                    <Link href={`posts/[${featured.title}]`}>
+                        read more 
+                    </Link>
+                </div>
+                <div className="featured-post-image-container">
+                    <img src={`/${featured.image}`} alt="featured post image" priority/>
+                </div>
+                </SwiperSlide>
+            ))
+            }
+          </Swiper>
         </section>
         <section className="featured-related-post-container">
             <div className="left-container">
@@ -24,7 +55,9 @@ const blog = ({featuredposts}) => {
                     <span className="line"></span>
                     <h2>related posts</h2>
                 </span>
-                <div className="left-container-post-card" style={{position:'relative'}}>
+                {
+                    
+                    <div className="left-container-post-card" style={{position:'relative'}}>
                     <Image src="/hold.jpeg" alt="" className="blog-img" layout="fill" placeholder="blur" blurDataURL="/hold.jpeg"/>
                     <article className="blog-card-text-container">
                         <h1 className='article-title'>invest in real estate now</h1>
@@ -32,6 +65,8 @@ const blog = ({featuredposts}) => {
                         <Link href='#'> read more</Link>
                     </article>
                 </div>
+                }
+                
             </div>
             <div className="right-container">
                 <div className="right-blog-card" style={{position:'relative'}}>
@@ -52,6 +87,7 @@ const blog = ({featuredposts}) => {
                 </div>
             </div>
         </section>
+        <PopularHeader text={'blog posts'}/>
         <section className='property-list blog-section blog-list' id='blog-posts'>
             {featuredposts.map(
             item =>  <BlogCard key={item.id} item ={item}/>
