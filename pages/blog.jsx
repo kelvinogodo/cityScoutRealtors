@@ -28,7 +28,7 @@ const blog = ({featuredposts}) => {
           modules={[Autoplay, Pagination]}
           className="mySwiper blog-swiper"
           >
-            { featuredposts && featuredposts.map(featured => (
+            { featuredposts ? featuredposts.slice(featuredposts.length-2,featuredposts.length).reverse().map(featured => (
                 <SwiperSlide className='blog-slide'>
                 <div className="featured-post-text">
                     <h1>{featured.title}</h1>
@@ -37,7 +37,7 @@ const blog = ({featuredposts}) => {
                             Parser(featured.body.slice(0,200))
                         }
                     </div>
-                    <Link href={`posts/[${featured.title}]`}>
+                    <Link href='/post/[id]' as={`/post/${featured.title}`}>
                         read more 
                     </Link>
                 </div>
@@ -45,7 +45,7 @@ const blog = ({featuredposts}) => {
                     <img src={`/${featured.image}`} alt="featured post image" priority/>
                 </div>
                 </SwiperSlide>
-            ))
+            )) : ''
             }
           </Swiper>
         </section>
@@ -56,36 +56,38 @@ const blog = ({featuredposts}) => {
                     <h2>related posts</h2>
                 </span>
                 {
-                    
+                    featuredposts ? featuredposts.slice(featuredposts.length-2,featuredposts.length-1).reverse().map(related => (
                     <div className="left-container-post-card" style={{position:'relative'}}>
-                    <Image src="/hold.jpeg" alt="" className="blog-img" layout="fill" placeholder="blur" blurDataURL="/hold.jpeg"/>
-                    <article className="blog-card-text-container">
-                        <h1 className='article-title'>invest in real estate now</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, </p>
-                        <Link href='#'> read more</Link>
-                    </article>
+                    <Image src={`/${related.image}`} alt="related post image" className="blog-img" layout="fill" placeholder="blur" blurDataURL={`/${related.image}`}/>
+                    <div className="blog-card-text-container">
+                        <h1 className='article-title'>{related.title}</h1>
+                        <div className='featured-post-body'>
+                            {
+                                Parser(related.body.slice(0,80))
+                            }
+                        </div>
+                        <Link href='/post/[id]' as={`/post/${related.title}`}> read more</Link>
+                    </div>
                 </div>
+                )) : ''
                 }
-                
             </div>
             <div className="right-container">
+            { featuredposts ? featuredposts.slice(featuredposts.length - 4,featuredposts.length-2).map(featured => (
                 <div className="right-blog-card" style={{position:'relative'}}>
-                    <Image src="/city.jpg" alt="" className="blog-img" layout="fill" placeholder="blur" blurDataURL="/city.jpg"/>
-                    <article className="blog-card-text-container">
-                        <h1 className='article-title'>invest in real estate now</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, </p>
-                        <Link href='#'> read more</Link>
-                    </article>
+                    <Image src={`/${featured.image}`} alt="realted post image" className="blog-img" layout="fill" placeholder="blur" blurDataURL={`/${featured.image}`}/>
+                    <div className="blog-card-text-container">
+                        <h1 className='article-title'>{featured.title}</h1>
+                        <div className='featured-post-body'>
+                            {
+                                Parser(featured.body.slice(0,80))
+                            }
+                        </div>
+                        <Link href='/post/[id]' as={`/post/${featured.title}`}> read more</Link>
+                    </div>
                 </div>
-                <div className="right-blog-card" style={{position:'relative'}}>
-                <Image src="/nigerhouse8.jpg" alt="" className="blog-img" layout="fill" placeholder="blur" blurDataURL="/nigerhouse8.jpg" />
-                    <article className="blog-card-text-container">
-                        <h1 className='article-title'>invest in real estate now</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, </p>
-                        <Link href='#'> read more</Link>
-                    </article>
-                </div>
-            </div>
+             )) : ''}
+            </div> 
         </section>
         <PopularHeader text={'blog posts'}/>
         <section className='property-list blog-section blog-list' id='blog-posts'>

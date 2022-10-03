@@ -22,10 +22,9 @@ const about = () => {
             <h1>about abakaliki real estate</h1>
             <span className="line"></span>
           </span>
-          <p>city scout realtors is a property agent based in Abakaliki. our focus is to help pepople find, and buy legal properties, whether buildings or land , in the state. we are also committed to 
+          <p>city scout realtors is a property agent based in Abakaliki. our focus is to help pepople find, and buy legal properties, whether buildings or land , in the state. we are also committed to delivering quality property development services. 
           </p>
           <p>
-          delivering quality property development services.
           the team is made up of experienced and young professionals with a taste fro innovation and quality property brokerage
           </p>
         </div>

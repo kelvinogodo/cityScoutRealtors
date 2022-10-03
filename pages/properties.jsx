@@ -56,8 +56,8 @@ const [searchKeywords, setSearchKeywords] = useState()
         <div className="blog-card-text-container property-landpage-container">
           <div className='landpage-body'>
             <article className="land-body-text-container">
-              <h1>invest in real estate now!</h1>
-              <h2>search for a property below</h2>
+              <h2>invest in real estate now!</h2>
+              <p>search for a property below</p>
             </article>
             <section className={`search-input-container`}>
               <div className="sort-btn-container">

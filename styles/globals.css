@@ -2227,6 +2227,31 @@ footer{
 
 }
 @media screen and (max-width:740px) {
+.featured-post-image-container{
+  position:absolute;
+  top:0;
+  left:0;
+}
+.blog-slide{
+  position:relative;
+}
+.featured-post-text{
+  z-index:4;
+  background:black;
+  padding-bottom:50px;
+}
+.featured-post-text h1{
+  color:white;
+}
+.featured-post-body p{
+  color:white;
+}
+.featured-post-body p:first-letter{
+  text-transform:uppercase;
+}
+.featured-post-body h2, .featured-post-body h1{
+  color:white;
+}
   .featured-post-body h1 ,.featured-post-text h1{
     font-size:1.4rem !important;
   }
@@ -2672,5 +2697,17 @@ footer{
   }
   .latest-post-section{
     padding: 0px;
+  }
+  .land-body-text-container p{
+    width:95%;
+  }
+  .search-input-container{
+    padding:10px 2px;
+  }
+  .service-landpage-text-container h1{
+    font-size:1.4rem;
+  }
+  .about-icons{
+    margin-right:15px;
   }
 }

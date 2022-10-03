@@ -23,27 +23,6 @@ const service = () => {
       </section>
       <section className="service-card-container">
         <div className="service-card">
-          <AiOutlineSafety />
-          <h2>trusted property sales</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae debitis modi quam deserunt repudiandae nesciunt officiis tempora nostrum architecto doloremque.
-          </p>
-        </div>
-        <div className="service-card">
-        <RiCustomerService2Fill />
-          <h2>professional support</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae debitis modi quam deserunt repudiandae nesciunt officiis tempora nostrum architecto doloremque.
-          </p>
-        </div>
-        <div className="service-card">
-          <MdUpdate />
-          <h2>24hrs service</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae debitis modi quam deserunt repudiandae nesciunt officiis tempora nostrum architecto doloremque.
-          </p>
-        </div>
-        <div className="service-card">
           <GiProgression />
           <h2>property brokerage</h2>
           <p>
