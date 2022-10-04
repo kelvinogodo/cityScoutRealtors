@@ -16,10 +16,11 @@ export default async function   createPost(req, res){
             }
         }
         )
-        res.status(200).json('updated')
+        res.status(200).json({status:200})
         console.log("post successfully updated")
     } catch (error) {
         console.log(error)
         res.json(error)
+        res.status(500)
     }
 }

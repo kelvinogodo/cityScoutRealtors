@@ -23,6 +23,11 @@ const contact = () => {
           form.current.innerText = ' '
       }, (error) => {
           console.log(error.text);
+          Swal.fire(
+            'error',
+            'error something went wrong ',
+            'error'
+          )
       });
   };
 
@@ -39,10 +44,10 @@ const contact = () => {
         <img src="/contact-img2.jpg" alt="" className="contact-img" />
         <div className="contact-form-container">
           <form className="contact-form" ref={form} onSubmit={sendEmail}>
-            <input type="text" placeHolder='enter your name' name="user_name"/>
-            <input type="tel" placeHolder='enter your phonenumber' name="phone_number"/>
+            <input type="text"required placeHolder='enter your name' name="user_name"/>
+            <input type="tel" required placeHolder='enter your phonenumber' name="phone_number"/>
             <input type="text" placeHolder='enter your email {optional}' name="user_email"/>
-            <textarea name="message" id="" placeHolder='enter your message'></textarea>
+            <textarea name="message" required id="" placeHolder='enter your message'></textarea>
             <input type="submit" value='send message' className='contact-submit-btn'/>
           </form>
         </div>

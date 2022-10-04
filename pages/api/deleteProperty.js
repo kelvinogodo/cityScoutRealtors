@@ -7,7 +7,7 @@ export default async function  createProperty(req, res){
     try {
         await Property.deleteOne({"_id": req.body.id})
         console.log("property successfully deleted")
-        res.status(200).json('successful')
+        res.status(200).json({status:200})
     } catch (error) {
         console.log(error)
         res.json(error)

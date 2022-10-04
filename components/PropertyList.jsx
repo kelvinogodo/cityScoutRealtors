@@ -6,7 +6,7 @@ const PropertyList = ({properties}) => {
   return (
       <motion.section layout initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className='property-list'>
         <AnimatePresence>
-          {properties.slice(properties.length - 4, properties.length).reverse().map(item => <Card item={item} key={item._id} addedClass={'blog-card'}/>)}
+          {properties.slice(properties.length - 6, properties.length).reverse().map(item => <Card item={item} key={item._id} addedClass={'blog-card'}/>)}
         </AnimatePresence>
       </motion.section>
   )

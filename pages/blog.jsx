@@ -28,7 +28,7 @@ const blog = ({featuredposts}) => {
           modules={[Autoplay, Pagination]}
           className="mySwiper blog-swiper"
           >
-            { featuredposts ? featuredposts.slice(featuredposts.length-2,featuredposts.length).reverse().map(featured => (
+            { featuredposts ? featuredposts.slice(featuredposts.length-5,featuredposts.length).reverse().map(featured => (
                 <SwiperSlide className='blog-slide'>
                 <div className="featured-post-text">
                     <h1>{featured.title}</h1>

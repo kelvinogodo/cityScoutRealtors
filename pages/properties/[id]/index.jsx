@@ -9,7 +9,7 @@ const Properties = ({property}) => {
         <meta name="author" content='ogodo dominic' />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="page-header" style={{backgroundImage:`url(/${property.frontViewImage})`}}>
+      <div className="page-header" style={{backgroundImage:'url(/realestate (16).jpg)'}}>
       </div>
       <section className='page'>    
           <div className="left-description-body">

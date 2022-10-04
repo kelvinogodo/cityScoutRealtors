@@ -14,10 +14,10 @@ export default async function  createProperty(req, res){
             backViewImage:req.body.backViewImage,
             type:req.body.type,
         })
-        console.log("property successfully created")
-        res.status(200)
+        res.json({status:200})
     } catch (error) {
         console.log(error)
         res.json(error)
+        res.status(500)
     }
 }

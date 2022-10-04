@@ -19,7 +19,7 @@ export default async function   createPost(req, res){
         }
         )
         console.log("property successfully updated")
-        res.status(200).json('updated')
+        res.status(200).json({status:200})
     } catch (error) {
         console.log(error)
         res.json(error)

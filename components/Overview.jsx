@@ -10,6 +10,7 @@ import {RiDeleteBin2Line} from 'react-icons/ri'
 import {RiFileEditLine} from 'react-icons/ri'
 import TipTap from './TipTap'
 import parser from 'html-react-parser'
+import Swal from 'sweetalert2'
 const Overview = ({showOverview,showCreateSection,showEditSection,showCreatePropertySection,showEditPropertySection}) => {
 
   // posts and properties state managers 
@@ -29,13 +30,13 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
     console.log(`${posts} ${propertiesArray}`)
   }
   useEffect(()=>{ 
-    // const admin = localStorage.getItem('user') 
-    // if(admin !== null){
-    //     console.log('welcome admin')
-    // }
-    // else{
-    //     window.location.href= '/admin'
-    // }
+    const admin = localStorage.getItem('user') 
+    if(admin !== null){
+        console.log('welcome admin')
+    }
+    else{
+        window.location.href= '/admin'
+    }
   fetchData()
   },[])
   const [postTitle,setPostTitle] = useState()
@@ -45,8 +46,7 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
   const [postDate,setPostDate] = useState()
   const [postCategory,setPostCategory] = useState()
 
-  const createPost = async (e)=>{
-    e.preventDefault()
+  const createPost = async ()=>{
     const date = new Date().toLocaleDateString()
     setPostDate(date)
     const newPost = {
@@ -67,7 +67,22 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
     }
     )
     const res = await req.json()
-    console.log(res)
+    switch (res) {
+      case 'created':
+        Swal.fire(
+          'congrats',
+          'post successfully created ',
+          'success'
+        )
+        break;
+    
+      default: Swal.fire(
+        'warning',
+        'something went wrong ',
+        'warning'
+      )
+        break;
+    }
     fetchData()
   }
 
@@ -81,8 +96,7 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
   const [propertyType, setPropertyType] = useState()
 
   // function for creating property 
-  const createProperty = async (e)=>{
-    e.preventDefault()
+  const createProperty = async ()=>{
     const newProperty = {
       description:`${propertyDescription}`,
       location:`${propertyLocation}`,
@@ -102,7 +116,23 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
     }
     )
     const response = await request.json()
-    console.log(response)
+    switch (response.status) {
+      case 200:
+        Swal.fire(
+          'congrats',
+          'property successfully created ',
+          'success'
+        )
+        break;
+    
+      default: Swal.fire(
+        'warning',
+        'something went wrong ',
+        'warning'
+      )
+        break;
+    }
+    fetchData()
   }
   // delete post function 
   const deletePost = async (id)=>{
@@ -116,7 +146,22 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
     }
     )
     const deleteResponse = await deleteRequest.json()
-    console.log(deleteResponse)
+    switch (deleteResponse.status) {
+      case 200:
+        Swal.fire(
+          'congrats',
+          'post successfully deleted ',
+          'success'
+        )
+        break;
+    
+      default: Swal.fire(
+        'warning',
+        'something went wrong ',
+        'warning'
+      )
+        break;
+    }
     fetchData()
   }
   // delete property function 
@@ -131,7 +176,22 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
     }
     )
     const deleteResponse = await deleteRequest.json()
-    console.log(deleteResponse)
+    switch (deleteResponse.status) {
+      case 200:
+        Swal.fire(
+          'congrats',
+          'property successfully deleted ',
+          'success'
+        )
+        break;
+    
+      default: Swal.fire(
+        'warning',
+        'something went wrong ',
+        'warning'
+      )
+        break;
+    }
     fetchData()
   }
   
@@ -175,7 +235,23 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
     }
     )
     const res = req.json()
-    console.log(res)
+    switch (res.status) {
+      case 200:
+        Swal.fire(
+          'congrats',
+          'property successfully updated ',
+          'success'
+        )
+        break;
+    
+      default: Swal.fire(
+        'warning',
+        'something went wrong ',
+        'warning'
+      )
+        break;
+    }
+    fetchData()
   }
   const [activeProperty,setActiveProperty] = useState()
   const editPost = async (e)=>{
@@ -204,7 +280,22 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
     }
     )
     const postResponse = await editRequest.json() 
-    console.log(postResponse)
+    switch (postResponse.status) {
+      case 200:
+        Swal.fire(
+          'congrats',
+          'post successfully updated ',
+          'success'
+        )
+        break;
+    
+      default: Swal.fire(
+        'warning',
+        'something went wrong ',
+        'warning'
+      )
+        break;
+    }
     fetchData()
   }
   const [activePostId, setActivePostId] = useState()
@@ -226,16 +317,30 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
  
   const [uploadImage,setUploadImage] = useState()
 
-  const uploadFile = async (e)=>{
-    e.preventDefault()
+  const uploadFile = async ()=>{
     const formData = new FormData
-    formData.append('file',uploadImage)
-
-    const req = await fetch('http://localhost:3000/api/upload',formData,
+    formData.append('theFiles',uploadImage)
+    console.log(uploadImage)
+    const req = await fetch('http://localhost:3000/api/upload',
     {
-      headers:{
-        'content-Type':'multipart/form-data'
-      }
+      method:'POST',
+      body:formData
+    }
+    )
+    const res = req.json()
+    console.log(res)
+  }
+  const [propertyImages, setPropertyImages] = useState([])
+  const uploadPropertyImages = async () =>{
+    const formData = new FormData
+    propertyImages.forEach(file =>{
+      formData.append('theFiles',file)
+    } )
+    console.log(uploadImage)
+    const req = await fetch('http://localhost:3000/api/uploadPropertyImages',
+    {
+      method:'POST',
+      body:formData
     }
     )
     const res = req.json()
@@ -368,7 +473,11 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
           </section>}
         {showCreateSection && <section className='post-view-section'>
           <div className="form-view">
-          <form className="create-post-form" onSubmit={createPost}>
+          <form className="create-post-form" onSubmit={(e)=>{
+            e.preventDefault()
+            createPost()
+            uploadFile()
+            }}>
             <input type="text" required placeHolder='post title'className='input' 
             onChange={(e)=>{
               const title = e.target.value.toString()
@@ -384,6 +493,14 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
                 setPostAuthor(author)
               }} required
             />
+            <input type="file" name='theFiles' accept=".png,.jpg,.webp,.svg,.jpeg" className='file-upload-input'
+               onChange={(e)=>{
+                setPostImage(e.target.files[0].name.toString())
+                const image = e.target.files[0]
+                setUploadImage(image)
+              }}
+              required
+            />
             <span className='create-category'>choose category</span>
             <div className="category-btn-container"> 
             {
@@ -398,17 +515,6 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
             </div>
             <input type="submit" value="create post" className='create-btn'/>
           </form>
-          <form onSubmit={uploadFile}>
-          <input type="file" name='images' accept=".png,.jpg,.webp,.svg,.jpeg" className='file-upload-input'
-               onChange={(e)=>{
-                setPostImage(e.target.files[0].name.toString())
-                const image = e.target.files[0]
-                setUploadImage(image)
-              }}
-              required
-            />
-            <input type="submit" value="upload" className='image-upload-btn'/>
-          </form>
           </div>
           <div className="overview ProseMirror">
             {postTitle && <h1>{postTitle}</h1>}
@@ -421,7 +527,11 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
         {showCreatePropertySection && 
           <section className='post-view-section'>
           <div className="form-view">
-          <form className="create-post-form create-property" onSubmit={createProperty}>
+          <form className="create-post-form create-property" onSubmit={(e)=>{
+            e.preventDefault()
+            createProperty()
+            uploadPropertyImages()
+          }}>
             <input type="text" placeHolder='property price'className='input' onChange={(e)=>{
               const price  = e.target.value.toString()
               setPropertyPrice(price)
@@ -435,17 +545,20 @@ const Overview = ({showOverview,showCreateSection,showEditSection,showCreateProp
               setPropertyDescription(description)
             }}/>
             <label htmlFor="file-upload-input" className='label'>full view picture</label>
-            <input type="file" accept=".png,.jpg,.webp,.svg,.jpeg" id="file-upload-input" className='file-upload-input' onChange={(e)=>{
+            <input type="file" name='theFiles' accept=".png,.jpg,.webp,.svg,.jpeg" id="file-upload-input" className='file-upload-input' onChange={(e)=>{
               const frontImage  = e.target.files[0].name.toString()
+              propertyImages.push(e.target.files[0])
               setFrontViewImage(frontImage)
             }}/>
             <label htmlFor="file-upload-input" className='label'>side view picture</label>
-            <input type="file" accept=".png,.jpg,.webp,.svg,.jpeg" id="file-upload-input" className='file-upload-input' onChange={(e)=>{
+            <input type="file" name='theFiles' accept=".png,.jpg,.webp,.svg,.jpeg" id="file-upload-input" className='file-upload-input' onChange={(e)=>{
               const sideImage  = e.target.files[0].name.toString()
+              propertyImages.push(e.target.files[0])
               setSideViewImage(sideImage)}}/>
             <label htmlFor="file-upload-input" className='label'>side view picture</label>
-            <input type="file" accept=".png,.jpg,.webp,.svg,.jpeg" id="file-upload-input" className='file-upload-input'onChange={(e)=>{
+            <input type="file" name='theFiles' accept=".png,.jpg,.webp,.svg,.jpeg" id="file-upload-input" className='file-upload-input'onChange={(e)=>{
               const backImage  = e.target.files[0].name.toString()
+              propertyImages.push(e.target.files[0])
               setBackViewImage(backImage)}} />
             <span className='create-category'>choose property type</span>
             <div className="category-btn-container"> 

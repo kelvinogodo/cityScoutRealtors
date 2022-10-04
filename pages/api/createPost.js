@@ -14,7 +14,7 @@ export default async function   createPost(req, res){
             category:req.body.category
         })
         console.log("post successfully created")
-        res.json(req.body)
+        res.json('created')
     } catch (error) {
         console.log(error)
         res.json(error)

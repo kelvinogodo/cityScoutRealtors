@@ -2025,7 +2025,21 @@ footer{
   width:90%;
   text-align:left;
 }
-
+.blog-card-body h1{
+  font-family: plus jarkata text,lato ;
+}
+.upper-grid{
+  height:350px;
+  object-fit:cover;
+  width:100%;
+}
+.lower-grid img{
+  height:200px;
+  object-fit:cover;
+}
+.page-header:after{
+  background:none;
+}
 @media screen and (max-width:1300px) {
   .slide{
     min-width: 350px;
@@ -2237,14 +2251,18 @@ footer{
 }
 .featured-post-text{
   z-index:4;
-  background:black;
+  background:rgba(0, 0, 0, 0.524);
   padding-bottom:50px;
 }
 .featured-post-text h1{
   color:white;
 }
 .featured-post-body p{
-  color:white;
+  color:rgb(222, 220, 220);
+}
+.featured-post-image-container{
+  margin-top:0px;
+  height: 100%;
 }
 .featured-post-body p:first-letter{
   text-transform:uppercase;
@@ -2554,7 +2572,19 @@ footer{
     flex-direction:column;
   }
   .form-view , .overview{
-    width:95%;
+    width:100%;
+    margin-right:0px ;
+    padding:0px;
+  }
+  .post-view-section{
+    width:100%;
+    padding:0px;
+    border:none;
+  }
+  .edit-icon-containers{
+    z-index:3;
+    background:white;
+    right:0;
   }
   .dashboard-aside{
     width:0px;
@@ -2709,5 +2739,17 @@ footer{
   }
   .about-icons{
     margin-right:15px;
+  }
+  .post-img-container{
+    height:350px;
+    width:95%;
+    padding:20px 0px;
+  }
+  .post-img-container{
+    width:100%;
+    margin-top: 33px;
+  }
+  .blog-header a{
+    font-size:.9rem;
   }
 }

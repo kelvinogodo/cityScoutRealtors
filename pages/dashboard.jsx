@@ -116,7 +116,7 @@ const dashboard = () => {
                     <p>create post</p>
                 </span>
                 <span onClick={()=>{
-                toggleOverview()
+                closeOverview()
                 closeCreate()
                 toggleCreateProperty()
                 closeEdit()

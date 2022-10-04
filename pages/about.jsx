@@ -25,7 +25,7 @@ const about = () => {
           <p>city scout realtors is a property agent based in Abakaliki. our focus is to help pepople find, and buy legal properties, whether buildings or land , in the state. we are also committed to delivering quality property development services. 
           </p>
           <p>
-          the team is made up of experienced and young professionals with a taste fro innovation and quality property brokerage
+          the team is made up of experienced and young professionals with a taste for innovation and quality property brokerage
           </p>
         </div>
       </section>
@@ -53,7 +53,7 @@ const about = () => {
               <span className="about-text-container-span">
                 <h3>integrity</h3>
                 <span className="line about-line"></span>
-                <p>we we consistently uphold ethical principles and morals. we do not sat it, we do it</p>
+                <p>we consistently uphold ethical principles and morals. we do not say it, we do it</p>
               </span>
             </div>
             <div className="about-text-container-card">
@@ -69,7 +69,7 @@ const about = () => {
               <span className="about-text-container-span">
                 <h3>continues growth</h3>
                 <span className="line about-line"></span>
-                <p>We learn everyday and we improve avery second</p>
+                <p>We learn everyday and we improve every second</p>
               </span>
             </div>
           </div>
@@ -91,7 +91,7 @@ const about = () => {
           <div className="team-card-text-container">
             <h2>our mision</h2>
             <span className="line"></span>
-            <p>To unlock the full potential of real estate in the rgion through technology and innovation</p>
+            <p>To unlock the full potential of real estate in the region through technology and innovation</p>
           </div>
         </div>
       </section>
