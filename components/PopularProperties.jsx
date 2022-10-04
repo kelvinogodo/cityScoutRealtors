@@ -17,9 +17,9 @@ const PopularProperties = ({properties}) => {
         className="mySwiper popular-swiper"
       >
         {properties.slice(properties.length - 4, properties.length).reverse().map((item)=>(
-        <SwiperSlide className='slide'>
+        <SwiperSlide className='slide' key={item.id}>
           <AnimatePresence>
-            <PopularCard key={item.id} item={item} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className='property-card'/>
+            <PopularCard item={item} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} className='property-card'/>
           </AnimatePresence>
         </SwiperSlide>
         ))}

@@ -89,7 +89,7 @@ const [searchKeywords, setSearchKeywords] = useState()
         </span>
         <div className='property-list blog-section'>
           {filter.map(item =>(
-            <Card key={item.id} item={item} addedClass={'blog-card'}/>
+            <Card key={item._id} item={item} addedClass={'blog-card'}/>
           ))}
         </div>
       </section>  

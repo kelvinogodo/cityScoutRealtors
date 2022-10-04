@@ -41,7 +41,7 @@ const Menu = ({links,showMenu}) => {
     <>
         <aside className={`menu-bar ${showMenu && 'grow'} `}>
             {links.map ((link,index) =>(
-              <div className='menu-link-container'>
+              <div className='menu-link-container' key={index}>
                 {switchIcon(link)}
                 <Link href={link == 'home' ? '/' : `/${link}`} key={index}>{link}</Link>
                 <MdKeyboardArrowRight />

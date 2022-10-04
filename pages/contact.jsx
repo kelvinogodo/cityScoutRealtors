@@ -71,7 +71,7 @@ const contact = () => {
         </span>
       </section>
       <section className="map-container">
-      <div class="mapouter"><div class="gmap_canvas"><iframe style={{width:'100%', height:'400px'}} id="gmap_canvas" src="https://maps.google.com/maps?q=chillis%20foods%20,%20abakaliki%20ebonyi%20state%20nigeria&t=&z=17&ie=UTF8&iwloc=&output=embed" frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0"></iframe><a href="https://putlocker-is.org"></a><br /></div></div>
+      <div className="mapouter"><div className="gmap_canvas"><iframe style={{width:'100%', height:'400px'}} id="gmap_canvas" src="https://maps.google.com/maps?q=chillis%20foods%20,%20abakaliki%20ebonyi%20state%20nigeria&t=&z=17&ie=UTF8&iwloc=&output=embed" frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0"></iframe><a href="https://putlocker-is.org"></a><br /></div></div>
       </section>
     </main>
   )

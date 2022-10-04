@@ -58,7 +58,7 @@ const SearchInput = ({inputClass,filterProperties,properties}) => {
         </div>
         {categories.map(category =>(
             category.active && 
-            <div className="input-container">
+            <div className="input-container" key={category.placeHolderText}>
                 <input type="text" className='search-input' placeHolder={`${category.placeHolderText}`} onChange={(e)=>{
                     setSearchKeywords(e.target.value.toLowerCase())
                     filterProperties(category.title,searchKeywords)
@@ -73,7 +73,7 @@ const SearchInput = ({inputClass,filterProperties,properties}) => {
                 <FaWindowClose />
             </span>
             <div className="sort-list-container">
-                {sortList.map(sort =>(<p onClick={()=>{filterProperties(listTitle,sort)}}>{sort}</p>)) }
+                {sortList.map(sort =>(<p key={sort.title} onClick={()=>{filterProperties(listTitle,sort)}}>{sort}</p>)) }
            </div>
         </section>
     </section>

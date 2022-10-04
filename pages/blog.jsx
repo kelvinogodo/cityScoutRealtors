@@ -29,7 +29,7 @@ const blog = ({featuredposts}) => {
           className="mySwiper blog-swiper"
           >
             { featuredposts ? featuredposts.slice(featuredposts.length-5,featuredposts.length).reverse().map(featured => (
-                <SwiperSlide className='blog-slide'>
+                <SwiperSlide className='blog-slide' key={featured._id}>
                 <div className="featured-post-text">
                     <h1>{featured.title}</h1>
                     <div className='ProseMirrow featured-post-body'>
@@ -57,7 +57,7 @@ const blog = ({featuredposts}) => {
                 </span>
                 {
                     featuredposts ? featuredposts.slice(featuredposts.length-2,featuredposts.length-1).reverse().map(related => (
-                    <div className="left-container-post-card" style={{position:'relative'}}>
+                    <div key={related._id} className="left-container-post-card" style={{position:'relative'}}>
                     <Image src={`/${related.image}`} alt="related post image" className="blog-img" layout="fill" placeholder="blur" blurDataURL={`/${related.image}`}/>
                     <div className="blog-card-text-container">
                         <h1 className='article-title'>{related.title}</h1>
@@ -74,7 +74,7 @@ const blog = ({featuredposts}) => {
             </div>
             <div className="right-container">
             { featuredposts ? featuredposts.slice(featuredposts.length - 4,featuredposts.length-2).map(featured => (
-                <div className="right-blog-card" style={{position:'relative'}}>
+                <div key={featured._id} className="right-blog-card" style={{position:'relative'}}>
                     <Image src={`/${featured.image}`} alt="realted post image" className="blog-img" layout="fill" placeholder="blur" blurDataURL={`/${featured.image}`}/>
                     <div className="blog-card-text-container">
                         <h1 className='article-title'>{featured.title}</h1>
@@ -92,7 +92,7 @@ const blog = ({featuredposts}) => {
         <PopularHeader text={'blog posts'}/>
         <section className='property-list blog-section blog-list' id='blog-posts'>
             {featuredposts.map(
-            item =>  <BlogCard key={item.id} item ={item}/>
+            item =>  <BlogCard key={item._id} item ={item}/>
             )}
         </section>
         <section className="latest-post-section">
